@@ -1,0 +1,70 @@
+<div class="card">
+
+    <div class="card-header">                 
+        <span class="float-start"> User: <span> User Name</span></span>
+        <span class="float-end"> Date Added: <span> Date</span></span>
+    </div>
+
+    <div class="card-body">
+        <p class="post-title">Title: </p>
+        <p class="post-description">Description: </p>
+    </div>
+    <div class="card-footer">
+
+        <div class=""><button class="btn btn-primary float-end">Add Comment</button></div>
+        <br>
+        <br>
+        <div class="card comments">
+            <div class="card-body">
+                <div class="card-content">
+                    <!-- All User Comments -->
+                    {{!-- {{#each comments as |comment|}} --}}
+                        {{!-- {{> comment-details}} --}}
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="float-start"> User: <span> User Name</span></span>
+                                <span class="float-end"> Date Added: <span> Date</span></span>
+                            </div>
+                            <div class="card-body">
+                                <p class="comment-title">Title: </p>
+                                <p class="comment-description">Description: </p>
+                            </div>
+                            <div class="card-footer"></div>
+                        </div>
+                    {{!-- {{/each}} --}}
+                    
+                            
+                    
+                </div>
+            </div>
+        </div>
+
+        <br>
+                          
+        <div class="card leave-comment">
+            <div class="card-body">
+                <!-- Leave A Comment -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Leave A Comment</h5>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group mb-3">
+                                <label for="comment"></label>
+                                <textarea class="form-control" rows="5" id="comment" placeholder="Speak Your Mind.."></textarea>
+                            </div>
+                        </form>
+                              
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary float-end">Post</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+                        
+
+
+    </div>
+</div>

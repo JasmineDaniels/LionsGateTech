@@ -12,13 +12,21 @@ header {
     font-size: larger;
 }
 
-.new-post {
-    width: 800px;
-    
+.new-post, .recent-posts {
+    width: 800px; 
 }
 
-/* .post-content{
-    margin-left: 120px;
-    width: 600px;
+.all-posts{
+    height: max-content;
+}
+
+
+/* .comments{
+    display: none;
+    
+} */
+
+/* .leave-comment{
+    display: none;
 } */
 
