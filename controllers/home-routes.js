@@ -1,3 +1,5 @@
+const seedUser = require('../seeds/user-seeds');
+
 const router = require('express').Router();
 
 
