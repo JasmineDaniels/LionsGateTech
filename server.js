@@ -4,6 +4,7 @@ require("dotenv").config()
 const path = require('path')
 const routes = require('./controllers')
 const exphbs = require('express-handlebars')
+const helpers = require('./utils/helpers');
 //const sessions = require('express-session')
 //const SequelizeStore 
 

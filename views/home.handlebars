@@ -35,19 +35,19 @@
                 
             <div class="card-body all-posts">
                 <div class="card-content ">
-                    {{!-- User Posts --}}
-                    {{!-- {{#each posts as |post|}} --}}
+                  {{!-- User Posts --}}
+                  {{#each posts as |post|}}
                         {{!-- {{> post-details}} --}}
-                    {{!-- {{/each}} --}}
+                    
                     <div class="card">
                       <div class="card-header">
                         
-                        <span class="float-start"> User: <span> User Name</span></span>
-                        <span class="float-end"> Date Added: <span> Date</span></span>
+                        <span class="float-start"> User: <span>{{post.user.username}}</span></span>
+                        <span class="float-end"> Date Added: <span>{{post.createdAt}}</span></span>
                       </div>
                       <div class="card-body">
-                        <p class="post-title">Title: </p>
-                        <p class="post-description">Description: </p>
+                        <p class="post-title">Title: <span>{{post.title}}</span></p>
+                        <p class="post-description">Description: <span>{{post.post_content}}</span></p>
                       </div>
                       <div class="card-footer">
 
@@ -102,7 +102,7 @@
                       </div>
                     </div>
 
-
+                  {{/each}}
                 </div>
 
             </div>
