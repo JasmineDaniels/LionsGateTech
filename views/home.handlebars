@@ -1,4 +1,4 @@
-<div class="container">
+<div id="HOME" class="container">
 
     <div class="new-post mx-auto">
         <div class="card">
@@ -35,10 +35,9 @@
                 
             <div class="card-body all-posts">
                 <div class="card-content ">
-                  {{!-- User Posts --}}
+                   {{!-- User Posts --}}
                   {{#each posts as |post|}}
-                        {{!-- {{> post-details}} --}}
-                    
+                    {{!-- {{> post-details}} --}}
                     <div class="card">
                       <div class="card-header">
                         
@@ -54,22 +53,26 @@
                         <div class=""><button class="btn btn-primary float-end">Add Comment</button></div>
                          <br>
                          <br>
-                          <div class="card comments">
+                          <div class="card all-comments">
                             <div class="card-body">
                               <div class="card-content">
                                 <!-- All User Comments -->
+                                {{!-- {{#each posts.comments}} --}}
+                                {{!-- {{> comment-details}} --}}
                                 <div class="card">
                                   <div class="card-header">
-                                    <span class="float-start"> User: <span> User Name</span></span>
+                                    <span class="float-start"> User: <span>{{post.comments.author}}</span></span>
                                     <span class="float-end"> Date Added: <span> Date</span></span>
                                   </div>
                                   <div class="card-body">
-                                    <p class="comment-title">Title: </p>
-                                    <p class="comment-description">Description: </p>
+                                    
+                                    <p class="comment-description">Description: {{post.comments.comment}} </p>
                                   </div>
                                   <div class="card-footer"></div>
                                 </div>
+                                {{!-- {{/each}} --}}
                               </div>
+                              
                             </div>
                           </div>
                           <br>

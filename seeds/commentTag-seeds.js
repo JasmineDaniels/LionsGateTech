@@ -1,4 +1,4 @@
-const { CommentTag } = require('../models');
+//const { CommentTag } = require('../models');
 
 const commentTagData = [
   {
@@ -28,6 +28,6 @@ const commentTagData = [
   },
 ];
 
-const seedCommentTags = () => CommentTag.bulkCreate(commentTagData);
+//const seedCommentTags = () => CommentTag.bulkCreate(commentTagData);
 
-module.exports = seedCommentTags;
+//module.exports = seedCommentTags;

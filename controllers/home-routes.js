@@ -6,6 +6,10 @@ const router = require('express').Router();
 //     res.render('home')
 // })
 
+router.get('/login', (req, res) => {
+    res.render('signin')
+})
+
 router.get('/', async (req, res) => {
     try {
         const postData = await Post.findAll({
@@ -14,13 +18,14 @@ router.get('/', async (req, res) => {
                     model: User, 
                     attributes: ['username']
                 },
-                // {
-                //     model: Comment,
-                //     attributes: [
-                //     'comment',
-                //     'createdAt'
-                //     ]
-                // }
+                {
+                    model: Comment,
+                    attributes: [
+                    'comment',
+                    'author',
+                    'createdAt'
+                    ]
+                }
             ],
         })
 

@@ -45,4 +45,4 @@ CommentTag.init(
     }
 );
 
-module.exports = CommentTag;
+//module.exports = CommentTag;
