@@ -6,10 +6,6 @@ const router = require('express').Router();
 //     res.render('home')
 // })
 
-router.get('/login', (req, res) => {
-    res.render('signin')
-})
-
 router.get('/', async (req, res) => {
     try {
         const postData = await Post.findAll({
@@ -37,5 +33,31 @@ router.get('/', async (req, res) => {
     }
     
 });
+
+router.get('/login', (req, res) => {
+    res.render('signin')
+})
+
+router.get('/dash', (req, res) => {
+    res.render('dash')
+})
+
+router.get('/dash/:username', async (req, res) => {
+    try {
+        const userData = await User.findOne({
+            where: {
+                username: req.params.username
+            },
+        });
+
+        const user = userData.get({ plain: true })
+        res.render('dash', user )
+    } catch (error) {
+        res.status(500).json(error);
+    }
+    
+})
+
+
 
 module.exports = router;
