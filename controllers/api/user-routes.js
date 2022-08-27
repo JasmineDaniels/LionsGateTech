@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const User = require('../../models/User');
+const bcrypt = require('bcrypt')
 
 // GET all users
 router.get('/', async (req, res) => {
@@ -29,18 +30,38 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-// Create a user
-router.post('/', async (req, res) => {
+// Create a new user
+router.post('/signup', async (req, res) => {
     try {
-        const userData = await User.create({
-            username: req.body.username,
-            password: req.body.password,
-        })
-        res.status(200).json(userData)
+        const userData = req.body;
+        userData.password = await bcrypt.hash(req.body.password, 10)
+        const newUser = await User.create(userData)
+        res.status(200).json(newUser)
     } catch (error) {
         res.status(500).json(error)
     }
 })
+
+//Login an existing user
+router.post('/login', async (req, res) => {
+    const userData = await User.findOne({
+        where: {
+            username: req.body.username
+        }
+    })
+
+    if (!userData){
+        res.status(404).json(`Sorry, there are no users with this username..`)
+        return;
+    }
+
+    const isValid = await bcrypt.compare(req.body.password, userData.password)
+    isValid ? 
+    res.json({message: `You're successfully logged in!`, isValid}) :
+    res.json({message: `Password is incorrect`, isValid})
+})
+
+//Update a user
 
 //Delete a user
 router.delete('/:id', async (req, res) => {

@@ -38,19 +38,24 @@ router.get('/login', (req, res) => {
     res.render('signin')
 })
 
+router.get('/signup', (req, res) => {
+    res.render('signup')
+})
+
 router.get('/dash', (req, res) => {
     res.render('dash')
 })
 
+// GET user posts by username - DASH
 router.get('/dash/:username', async (req, res) => {
     try {
-        const userData = await User.findOne({
+        const userPosts = await Post.findAll({
             where: {
                 username: req.params.username
-            },
-        });
-
-        const user = userData.get({ plain: true })
+            }
+        })
+        
+        const user = userPosts.get({ plain: true })
         res.render('dash', user )
     } catch (error) {
         res.status(500).json(error);
