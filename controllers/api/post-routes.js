@@ -15,6 +15,7 @@ router.get('/', async (req, res) => {
     }
 })
 
+// Create a post by id - DASH (user_id)
 router.post('/', (req, res) => {
     const postData = Post.create({
         title: req.body.title,

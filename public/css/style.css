@@ -16,6 +16,10 @@ header {
     width: 800px; 
 }
 
+.new-post{
+    display: none;
+}
+
 .all-posts{
     height: max-content;
 }

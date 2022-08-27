@@ -6,6 +6,7 @@ const router = require('express').Router();
 //     res.render('home')
 // })
 
+//GET all posts
 router.get('/', async (req, res) => {
     try {
         const postData = await Post.findAll({
@@ -46,17 +47,26 @@ router.get('/dash', (req, res) => {
     res.render('dash')
 })
 
-// GET user posts by username - DASH
-router.get('/dash/:username', async (req, res) => {
+// GET user posts by id - DASH (user_id ?)
+router.get('/dash/:id', async (req, res) => {
     try {
-        const userPosts = await Post.findAll({
+
+        const userData = await User.findOne({
             where: {
-                username: req.params.username
+                id: req.params.id
+            },
+            include: {
+                model: Post,
+                attributes: [
+                    'title',
+                    'post_content',
+                    'createdAt'
+                ]
             }
         })
         
-        const user = userPosts.get({ plain: true })
-        res.render('dash', user )
+        const posts = userData.get({ plain: true })
+        res.render('dash', posts )
     } catch (error) {
         res.status(500).json(error);
     }
