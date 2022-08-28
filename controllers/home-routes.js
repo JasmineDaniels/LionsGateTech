@@ -2,11 +2,8 @@ const { Post, User, Comment } = require('../models');
 //const { getAttributes } = require('../models/User');
 const router = require('express').Router();
 
-// router.get('/', (req, res) => {
-//     res.render('home')
-// })
 
-//GET all posts
+//GET All - HOMEPG
 router.get('/', async (req, res) => {
     try {
         const postData = await Post.findAll({
@@ -60,7 +57,8 @@ router.get('/dash/:id', async (req, res) => {
                 attributes: [
                     'title',
                     'post_content',
-                    'createdAt'
+                    'createdAt',
+                    'id'
                 ]
             }
         })
@@ -73,6 +71,43 @@ router.get('/dash/:id', async (req, res) => {
     
 })
 
+router.post('/dash/api/posts', async (req, res) => {
+    try {
+        const postData = await Post.create({
+            title: req.body.title,
+            post_content: req.body.post_content,
+            user_id: req.body.user_id,
+        })
+        console.log(postData)
+
+        if(!postData){
+            res.status(404).json({message: `Post could not be completed at this time..`})
+            return;
+        } 
+        res.status(200).json(postData)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+})
+
+router.put('/dash/api/posts/:id', async (req, res) => {
+    try {
+        const postData = await Post.update( req.body, {
+            where: {
+                id: req.params.id,
+            },
+        });
+        console.log(postData)
+
+        if (!postData){
+            res.status(404).json({ message: 'No posts with this id..' })
+            return;
+        }
+        res.status(200).json(postData);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+})
 
 
 module.exports = router;

@@ -1,6 +1,6 @@
 <div id="DASH" class="container">
 
-            <div class="new-post mb-5 mx-auto">
+            <div class="new-post mb-5 mx-auto none">
                 <div class="card">
                     <div class="card-header "> 
                         <h5 >Create A New Post</h5>
@@ -18,7 +18,7 @@
                     </div>
                     
                     <div class="card-footer">
-                        <button class="btn btn-success float-end">Post</button>
+                        <button id="submit-post" class="btn btn-success float-end">Post</button>
                     </div>
                     
                 </div>
@@ -28,8 +28,8 @@
               
                 <div class="card">
                   <div class="card-header">
-                    <h5 id="{{id}}" class="float-start"> {{username}} Posts</h5>
-                    <button class="btn btn-success float-end">Add Post</button>
+                    <h5 id="{{id}}" class="float-start users-id"> {{username}} Posts</h5>
+                    <button id="add-new" class="btn btn-success float-end">Add Post</button>
                     
                   </div>
                   
@@ -37,10 +37,10 @@
                     <div class="card-content ">
                       <!-- User Posts -->
                     {{#each posts as |post|}}
-                      <div class="card">
+                      <div class="card my-2">
                         <div class="card-header">
                           
-                          <span class="float-start"> User: <span> {{post.username}}</span></span>
+                          <span id="{{post.id}}" class="float-start"> User: <span> {{post.username}}</span></span>
                           <span class="float-end"> Date Added: <span>{{post.createdAt}}</span></span>
                         </div>
                         <div class="card-body">
@@ -50,12 +50,11 @@
                         <div class="card-footer">
   
                           <div class="">
-                                <button class="btn btn-danger float-end">Delete Post</button>
-                                <button class="btn btn-primary float-end mx-2">Update Post</button>
-                            </div>
-                           <br>
-                           <br>
-                            <div class="card comments">
+                                <button id="delete-post" class="btn btn-danger float-end">Delete Post</button>
+                                <button id="update-post" class="btn btn-primary float-end mx-2">Update Post</button>
+                          </div>
+                           
+                            <div class="card comments none">
                               <div class="card-body">
                                 <div class="card-content">
                                   <!-- All User Comments -->
@@ -73,9 +72,31 @@
                                 </div>
                               </div>
                             </div>
-                            <br>
                             
                             
+                          <div class="update-post mb-5 mx-auto none">
+                            <div class="card">
+                                <div class="card-header "> 
+                                    <h5 >Update A Post</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="post-content">
+                                        <form>
+                                        <input class="form-control" type="text" placeholder="Title">
+                                        <div class="form-group mb-3">
+                                            <label for="comment"></label>
+                                            <textarea class="form-control" rows="5" id="comment" placeholder="Speak Your Mind.."></textarea>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                
+                                <div class="card-footer">
+                                    <button id="submit-update" class="btn btn-success float-end">Post</button>
+                                </div>
+                                
+                              </div>
+                          </div>
                           
   
   
@@ -96,3 +117,5 @@
             
             
 </div>
+
+<script src="/js/dash.js"></script>
