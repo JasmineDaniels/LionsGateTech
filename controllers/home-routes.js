@@ -109,5 +109,22 @@ router.put('/dash/api/posts/:id', async (req, res) => {
     }
 })
 
+router.delete('/dash/api/posts/:id', async (req, res) => {
+    try {
+        const postData = await Post.destroy({
+            where: {
+                id: req.params.id,
+            },
+        });
+
+        if (!postData){
+            res.status(404).json({ message: 'No posts with this id..' })
+            return;
+        }
+        res.json(postData);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+})
 
 module.exports = router;

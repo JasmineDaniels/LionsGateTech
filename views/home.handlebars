@@ -57,20 +57,20 @@
                             <div class="card-body">
                               <div class="card-content">
                                 <!-- All User Comments -->
-                                {{!-- {{#each posts.comments}} --}}
+                                {{#each post.comments}}
                                 {{!-- {{> comment-details}} --}}
                                 <div class="card">
                                   <div class="card-header">
-                                    <span class="float-start"> User: <span>{{post.comments.author}}</span></span>
-                                    <span class="float-end"> Date Added: <span> Date</span></span>
+                                    <span class="float-start"> User: <span>{{author}}</span></span>
+                                    <span class="float-end"> Date Added: <span>{{createdAt}}</span></span>
                                   </div>
                                   <div class="card-body">
                                     
-                                    <p class="comment-description">Description: {{post.comments.comment}} </p>
+                                    <p class="comment-description">Description: {{comment}} </p>
                                   </div>
                                   <div class="card-footer"></div>
                                 </div>
-                                {{!-- {{/each}} --}}
+                                {{/each}}
                               </div>
                               
                             </div>

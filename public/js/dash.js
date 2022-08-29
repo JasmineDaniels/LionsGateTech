@@ -76,3 +76,25 @@ document.querySelectorAll('#update-post').forEach(btn => {
         })
     })
 })
+
+document.querySelectorAll('#delete-post').forEach(btn => btn.addEventListener('click', async (event) => {
+    event.preventDefault();
+
+    //On delete cascade? 
+    const id = btn.parentElement.parentElement.previousElementSibling.previousElementSibling.children[0].getAttribute('id')
+
+    const awaitFetch = await fetch(`api/posts/${id}`, { 
+        method: 'DELETE',
+        body: JSON.stringify({
+            id, 
+        }),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+
+    if (awaitFetch.ok){
+        document.location.reload()   
+    }
+
+}))
