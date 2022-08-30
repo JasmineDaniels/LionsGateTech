@@ -64,12 +64,12 @@
                                 {{!-- {{> comment-details}} --}}
                                 <div class="card">
                                   <div class="card-header">
-                                    <span id="{{id}}" class="float-start comment-author"> User: <span>{{author}}</span></span>
+                                    <p id="{{id}}" class="float-start comment-author"> User: <span>{{author}}</span></p>
                                     <span class="float-end"> Date Added: <span>{{createdAt}}</span></span>
                                   </div>
                                   <div class="card-body">
                                     
-                                    <p class="comment-description">Description: {{comment}} </p>
+                                    <p class="comment-description">{{comment}} </p>
                                   </div>
                                   <div class="card-footer"></div>
                                 </div>
@@ -97,7 +97,7 @@
                               
                                 </div>
                                 <div class="card-footer">
-                                  <button id="post-comment" class="btn btn-primary float-end">Post</button>
+                                  <button class="btn btn-primary float-end post-comment">Post</button>
                                 </div>
                               </div>
                             </div>
