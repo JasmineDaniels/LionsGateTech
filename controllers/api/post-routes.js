@@ -4,17 +4,17 @@ const { QueryTypes } = require('sequelize');
 const { Post, User, Comment } = require('../../models')
 
 //Get All Posts - WIP
-router.get('/', async (req, res) => {
-    try {
-        const postData = await Post.findAll({
-            include: [{model:Comment}, {model: User}],
-        })
+// router.get('/', async (req, res) => {
+//     try {
+//         const postData = await Post.findAll({
+//             include: [{model:Comment}, {model: User}],
+//         })
 
-        res.status(200).json(postData)
-    } catch (error) {
-        res.status(500).json(error)
-    }
-})
+//         res.status(200).json(postData)
+//     } catch (error) {
+//         res.status(500).json(error)
+//     }
+// })
 
 // Get one post by id
 router.get('/:id', async (req, res) => {

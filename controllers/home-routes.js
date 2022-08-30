@@ -1,9 +1,7 @@
 const { Post, User, Comment } = require('../models');
-//const { getAttributes } = require('../models/User');
 const router = require('express').Router();
 
-
-//GET All - HOMEPG
+//GET All - HOMEPG VIEW
 router.get('/', async (req, res) => {
     try {
         const postData = await Post.findAll({
@@ -32,6 +30,50 @@ router.get('/', async (req, res) => {
     
 });
 
+//GET All Posts - API - WIP
+router.get('/api/posts', async (req, res) => {
+    try {
+        const postData = await Post.findAll({
+            include: [{model:Comment}, {model: User}],
+        })
+
+        res.status(200).json(postData)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+})
+
+router.get('/api/comments', async (req, res) => {
+    try {
+        const postData = await Comment.findAll({
+            include: [{model: User}],
+        })
+
+        res.status(200).json(postData)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+})
+
+// CREATE Comment - Homepage
+router.post('/api/comments', async (req, res) => {
+    try {
+        const commentData = await Comment.create({
+            author: req.body.author,
+            comment: req.body.comment,
+            post_id: req.body.post_id,
+        })
+
+        if (!commentData) {
+            res.status(404).json({message: `Your comment could not be posted at this time..`})
+        }
+        res.status(200).json(commentData)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+    
+})
+
 router.get('/login', (req, res) => {
     res.render('signin')
 })
@@ -44,7 +86,7 @@ router.get('/dash', (req, res) => {
     res.render('dash')
 })
 
-// GET user posts by id - DASH (user_id ?)
+// GET user posts by id - DASH (user_id ? / withAUTH)
 router.get('/dash/:id', async (req, res) => {
     try {
 
@@ -71,6 +113,7 @@ router.get('/dash/:id', async (req, res) => {
     
 })
 
+// CREATE user post - DASH
 router.post('/dash/api/posts', async (req, res) => {
     try {
         const postData = await Post.create({
@@ -90,6 +133,7 @@ router.post('/dash/api/posts', async (req, res) => {
     }
 })
 
+//UPDATE user post - DASH
 router.put('/dash/api/posts/:id', async (req, res) => {
     try {
         const postData = await Post.update( req.body, {
@@ -109,6 +153,7 @@ router.put('/dash/api/posts/:id', async (req, res) => {
     }
 })
 
+// DELETE user post
 router.delete('/dash/api/posts/:id', async (req, res) => {
     try {
         const postData = await Post.destroy({

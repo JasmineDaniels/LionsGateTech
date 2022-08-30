@@ -38,10 +38,10 @@
                    {{!-- User Posts --}}
                   {{#each posts as |post|}}
                     {{!-- {{> post-details}} --}}
-                    <div class="card">
+                    <div class="card mb-3">
                       <div class="card-header">
                         
-                        <span class="float-start"> User: <span>{{post.user.username}}</span></span>
+                        <span id="{{post.id}}" class="float-start"> User: <span>{{post.user.username}}</span></span>
                         <span class="float-end"> Date Added: <span>{{post.createdAt}}</span></span>
                       </div>
                       <div class="card-body">
@@ -50,10 +50,13 @@
                       </div>
                       <div class="card-footer">
 
-                        <div class=""><button class="btn btn-primary float-end">Add Comment</button></div>
+                        <div class="">
+                          <button class="btn btn-primary float-end add-comment">Add Comment</button>
+                          <a class="float-end mt-2 mx-3 view-comments" type="button">View All Comments</a>
+                        </div>
                          <br>
                          <br>
-                          <div class="card all-comments">
+                          <div class="card all-comments none">
                             <div class="card-body">
                               <div class="card-content">
                                 <!-- All User Comments -->
@@ -61,7 +64,7 @@
                                 {{!-- {{> comment-details}} --}}
                                 <div class="card">
                                   <div class="card-header">
-                                    <span class="float-start"> User: <span>{{author}}</span></span>
+                                    <span id="{{id}}" class="float-start comment-author"> User: <span>{{author}}</span></span>
                                     <span class="float-end"> Date Added: <span>{{createdAt}}</span></span>
                                   </div>
                                   <div class="card-body">
@@ -77,7 +80,7 @@
                           </div>
                           <br>
                           
-                          <div class="card leave-comment">
+                          <div class="card leave-comment none">
                             <div class="card-body">
                               <!-- Leave A Comment -->
                               <div class="card">
@@ -94,7 +97,7 @@
                               
                                 </div>
                                 <div class="card-footer">
-                                  <button class="btn btn-primary float-end">Post</button>
+                                  <button id="post-comment" class="btn btn-primary float-end">Post</button>
                                 </div>
                               </div>
                             </div>
@@ -115,3 +118,4 @@
     </div>
     
 </div>
+<script src="/js/home.js"></script>
