@@ -22,7 +22,10 @@ router.get('/', async (req, res) => {
         })
 
         const posts = postData.map((post) => post.get({plain: true}));
-        res.render('home', {posts})
+        res.render('home', {
+            posts,
+            loggedIn: req.session.loggedIn,
+        })
     } catch (error) {
         console.log(error);
         res.status(500).json(error);
@@ -46,7 +49,10 @@ router.get('/api/posts', async (req, res) => {
 router.get('/api/comments', async (req, res) => {
     try {
         const postData = await Comment.findAll({
-            include: [{model: User}],
+            include: [{
+                model: User,
+                attributes: ['username']
+            }],
         })
 
         res.status(200).json(postData)
@@ -58,8 +64,9 @@ router.get('/api/comments', async (req, res) => {
 // CREATE Comment - Homepage
 router.post('/api/comments', async (req, res) => {
     try {
+        //const userData = await User.findByPk({})
         const commentData = await Comment.create({
-            author: req.body.author,
+            author: req.body.author, // userData.username
             comment: req.body.comment,
             post_id: req.body.post_id,
         })
@@ -75,6 +82,10 @@ router.post('/api/comments', async (req, res) => {
 })
 
 router.get('/login', (req, res) => {
+    if (req.session.loggedIn){
+        res.redirect('/');
+        return;
+    }
     res.render('signin')
 })
 
@@ -82,17 +93,18 @@ router.get('/signup', (req, res) => {
     res.render('signup')
 })
 
-router.get('/dash', (req, res) => {
-    res.render('dash')
-})
+// router.get('/dash', (req, res) => {
+//     res.render('dash')
+// })
 
 // GET user posts by id - DASH (user_id ? / withAUTH)
-router.get('/dash/:id', async (req, res) => {
-    try {
+//router.get('/dash/:id', async (req, res) => {
+router.get('/dash', async (req, res) => {
+    try {   // if (req.session.loggedIn)
 
         const userData = await User.findOne({
             where: {
-                id: req.params.id
+                username: req.session.username
             },
             include: {
                 model: Post,
@@ -106,7 +118,10 @@ router.get('/dash/:id', async (req, res) => {
         })
         
         const posts = userData.get({ plain: true })
-        res.render('dash', posts )
+        res.render('dash', {
+            posts, 
+            loggedIn: req.session.loggedIn
+        })
     } catch (error) {
         res.status(500).json(error);
     }

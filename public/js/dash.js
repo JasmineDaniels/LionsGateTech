@@ -8,6 +8,7 @@ document.querySelector('#add-new').addEventListener('click', (event) => {
 
 })
 
+// Create user Post - Dash
 document.querySelector('#submit-post').addEventListener('click', async (event) => {
     event.preventDefault();
 
@@ -38,6 +39,7 @@ document.querySelector('#submit-post').addEventListener('click', async (event) =
     }
 })
 
+// Update user Post - Dash
 document.querySelectorAll('#update-post').forEach(btn => {
     btn.addEventListener('click', async (event) => {
         event.preventDefault()

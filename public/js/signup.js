@@ -20,7 +20,7 @@ document.querySelector('#register').addEventListener('click', async (event) => {
     })
 
     if (awaitFetch.ok){
-        document.location.replace(`/`) 
+        document.location.replace(`/login`) 
     } else {
         alert(`Failed to signup`)
     }

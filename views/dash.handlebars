@@ -1,5 +1,5 @@
 <div id="DASH" class="container">
-
+          {{#if loggedIn}}
             <div class="new-post mb-5 mx-auto none">
                 <div class="card">
                     <div class="card-header "> 
@@ -112,10 +112,9 @@
                 </div>
               
             </div>
-
-
-            
-            
+          {{else}}
+          <a href="/login">You must login first to view the dashboard</a>
+          {{/if}}       
 </div>
 
 <script src="/js/dash.js"></script>
