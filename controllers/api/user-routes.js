@@ -40,7 +40,6 @@ router.post('/signup', async (req, res) => {
           if (newUser){
             req.session.user = {
               username: newUser.username,
-              password: newUser.password,
             }
             req.session.loggedIn = true
             console.log(`request session cookie`, req.session.cookie)
@@ -64,12 +63,9 @@ router.post('/login', async (req, res) => {
         })
 
         if (!userData){ 
-          // req.session.loggedIn = false 
-            res.status(404).json(`Sorry, there are no users with this username..`)
-            return;
+          res.status(404).json(`Sorry, there are no users with this username..`)
+          return;
         }
-
-        //const isValid = await bcrypt.compare(req.body.password, userData.password)
         const isValid = await userData.checkPassword(req.body.password)
         
         if (!isValid){
@@ -77,21 +73,29 @@ router.post('/login', async (req, res) => {
           return;
         }
 
-        //req.session.isAuth = true;
         req.session.save(() => {
-          if (newUser){
-            req.session.user = {
-              username: userData.username,
-              password: userData.password,
-            }
-            req.session.loggedIn = true
-            console.log(`request session cookie`, req.session.cookie)
-          } else {
-            req.session.loggedIn = false
-          }
+          req.session.user = userData.username,
+          req.session.loggedIn = true
+          console.log(req.session, `LOGIN SESSION==========`)
+          console.log(req.sessionID, `LOGIN SESSION ID======`)
+          //console.log(`request session cookie`, req.session.cookie)
         })
-
-        res.status(200).json({user: userData, message: `You're successfully logged in!`})
+        
+        // req.session.save(() => {
+        //   if (isValid){
+        //     req.session.user = {
+        //       username: userData.username,
+        //     },
+        //     req.session.loggedIn = true
+        //     console.log(`request session cookie`, req.session.cookie)
+        //   } else {
+        //     req.session.loggedIn = false
+        //   }
+        // })
+        
+          res.status(200).json({user: userData, message: `You're successfully logged in!`})
+        
+          
 
     } catch (error) {
         res.status(400).json(error)
@@ -101,6 +105,7 @@ router.post('/login', async (req, res) => {
 //Update a user
 router.put('/:id', async (req, res) => {
     try {
+
       const userData = await User.update(req.body, {
         where: {
           id: req.params.id,

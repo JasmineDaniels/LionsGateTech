@@ -1,4 +1,5 @@
 const { Post, User, Comment } = require('../models');
+const { isAuth } = require('../utils/helpers');
 const router = require('express').Router();
 
 //GET All - HOMEPG VIEW
@@ -98,30 +99,85 @@ router.get('/signup', (req, res) => {
 // })
 
 // GET user posts by id - DASH (user_id ? / withAUTH)
-//router.get('/dash/:id', async (req, res) => {
-router.get('/dash', async (req, res) => {
-    try {   // if (req.session.loggedIn)
-
-        const userData = await User.findOne({
-            where: {
-                username: req.session.username
-            },
-            include: {
-                model: Post,
-                attributes: [
-                    'title',
-                    'post_content',
-                    'createdAt',
-                    'id'
-                ]
-            }
-        })
+// router.get('/dash/:username', async (req, res) => {
+//     try {   
         
-        const posts = userData.get({ plain: true })
-        res.render('dash', {
-            posts, 
-            loggedIn: req.session.loggedIn
-        })
+//         const userData = await User.findOne({
+//             where: {
+//                 username: req.params.username
+//             },
+//             include: {
+//                 model: Post,
+//                 attributes: [
+//                     'title',
+//                     'post_content',
+//                     'createdAt',
+//                     'id'
+//                 ]
+//             }
+//         })
+        
+//         const posts = userData.get({ plain: true })
+//         res.render('dash', posts )
+        
+//     } catch (error) {
+//         res.status(500).json(error);
+//     }
+    
+// })
+
+// router.get('/dash/:id', async (req, res) => {
+//     try {   
+        
+//         const userData = await User.findOne({
+//             where: {
+//                 id: req.params.id
+//             },
+//             include: {
+//                 model: Post,
+//                 attributes: [
+//                     'title',
+//                     'post_content',
+//                     'createdAt',
+//                     'id'
+//                 ]
+//             }
+//         })
+        
+//         const posts = userData.get({ plain: true })
+//         res.render('dash', posts )
+        
+//     } catch (error) {
+//         res.status(500).json(error);
+//     }
+    
+// })
+
+router.get(`/dash`, async (req, res) => {
+    try {   
+            const userCred = req.session
+            console.log(userCred, `DASH SESSION============`)
+            const storeID = req.sessionID
+            console.log(storeID, `DASH STOREID ============`)
+
+            const userData = await User.findOne({
+                where: {
+                    username: req.session.user
+                },
+                include: {
+                    model: Post,
+                    attributes: [
+                        'title',
+                        'post_content',
+                        'createdAt',
+                        'id'
+                    ]
+                }
+            })
+        
+            const posts = userData.get({ plain: true })
+            res.render('dash', posts )
+        
     } catch (error) {
         res.status(500).json(error);
     }

@@ -6,7 +6,7 @@ const routes = require('./controllers')
 const exphbs = require('express-handlebars')
 const helpers = require('./utils/helpers');
 const session = require('express-session')
-const SequelizeStore = require('connect-sesson-sequelize')(session.Store)
+const SequelizeStore = require('connect-session-sequelize')(session.Store)
 
 const app = express()
 const PORT = process.env.PORT || 3001;
@@ -16,9 +16,11 @@ const sess = {
   cookie: {
     //maxAge: 7200000, // 2 hours
     maxAge: 300000, // 5 mins
+    sameSite: 'none',
+    secure: false,
   },
   resave: false,
-  saveUninitialied: false,
+  saveUninitialized: false,
   store: new SequelizeStore({
     db: sequelize,
   }),
