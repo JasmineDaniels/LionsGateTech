@@ -1,3 +1,5 @@
+const session = require('express-session');
+const { Session } = require('express-session');
 const { Post, User, Comment } = require('../models');
 const { isAuth } = require('../utils/helpers');
 const router = require('express').Router();
@@ -155,10 +157,12 @@ router.get('/signup', (req, res) => {
 
 router.get(`/dash`, async (req, res) => {
     try {   
-            const userCred = req.session
-            console.log(userCred, `DASH SESSION============`)
-            const storeID = req.sessionID
-            console.log(storeID, `DASH STOREID ============`)
+            // const userCred = req.session
+            // console.log(userCred, `DASH SESSION============`)
+            // const storeID = req.sessionID
+            // console.log(storeID, `DASH STOREID ============`)
+
+            //const sessionData = await Session.findOne({ where: {sid: req.sessionID} })
 
             const userData = await User.findOne({
                 where: {

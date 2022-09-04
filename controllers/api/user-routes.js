@@ -73,13 +73,14 @@ router.post('/login', async (req, res) => {
           return;
         }
 
-        req.session.save(() => {
+        
           req.session.user = userData.username,
           req.session.loggedIn = true
           console.log(req.session, `LOGIN SESSION==========`)
           console.log(req.sessionID, `LOGIN SESSION ID======`)
           //console.log(`request session cookie`, req.session.cookie)
-        })
+        
+        
         
         // req.session.save(() => {
         //   if (isValid){
@@ -93,7 +94,8 @@ router.post('/login', async (req, res) => {
         //   }
         // })
         
-          res.status(200).json({user: userData, message: `You're successfully logged in!`})
+        res.status(200).json({user: userData, message: `You're successfully logged in!`})
+        
         
           
 
