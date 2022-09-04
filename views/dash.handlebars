@@ -1,5 +1,5 @@
 <div id="DASH" class="container">
-          {{!-- {{#if loggedIn}} --}}
+          {{#if loggedIn}}
             <div class="new-post mb-5 mx-auto none">
                 <div class="card">
                     <div class="card-header "> 
@@ -28,7 +28,7 @@
               
                 <div class="card">
                   <div class="card-header">
-                    <h5 id="{{id}}" class="float-start users-id"> {{username}} Posts</h5>
+                    <h5 id="{{posts.id}}" class="float-start users-id"> {{posts.username}} Posts</h5>
                     <button id="add-new" class="btn btn-success float-end">Add Post</button>
                     
                   </div>
@@ -36,7 +36,7 @@
                   <div class="card-body all-posts">
                     <div class="card-content ">
                       <!-- User Posts -->
-                    {{#each posts as |post|}}
+                    {{#each posts.posts as |post|}}
                       <div class="card my-2">
                         <div class="card-header">
                           
@@ -112,9 +112,9 @@
                 </div>
               
             </div>
-        {{!-- {{else}}
-          <a href="/login">You must login first to view the dashboard</a> --}}
-        {{!-- {{/if}}        --}}
+        {{else}}
+          <a href="/login">You must login first to view the dashboard</a>
+        {{/if}}       
 </div>
 
 <script src="/js/dash.js"></script>
