@@ -58,7 +58,7 @@ document.querySelectorAll('#update-post').forEach(btn => {
             console.log(title)
             console.log(post_content)  
 
-            const awaitFetch = await fetch(`api/posts/${id}`, { 
+            const awaitFetch = await fetch(`/dash/api/posts/${id}`, { 
                 method: 'PUT',
                 body: JSON.stringify({
                     title,
@@ -85,7 +85,7 @@ document.querySelectorAll('#delete-post').forEach(btn => btn.addEventListener('c
     //On delete cascade? 
     const id = btn.parentElement.parentElement.previousElementSibling.previousElementSibling.children[0].getAttribute('id')
 
-    const awaitFetch = await fetch(`api/posts/${id}`, { 
+    const awaitFetch = await fetch(`/dash/api/posts/${id}`, { 
         method: 'DELETE',
         body: JSON.stringify({
             id, 

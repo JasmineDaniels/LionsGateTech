@@ -25,8 +25,8 @@ document.querySelectorAll('.add-comment').forEach(btn => {
 document.querySelectorAll('.post-comment').forEach(btn => btn.addEventListener('click', async (event) => {
     event.preventDefault();
     // AUTHOR WONT WORK, need user id from sign in 
-    const author = btn.parentElement.parentElement.parentElement.parentElement.parentElement.children[3].children[0].children[0].children[0].children[0].children[0].children[0].innerText;
-    console.log(author)
+    // const user_id = btn.parentElement.parentElement.parentElement.parentElement.parentElement.children[3].children[0].children[0].children[0].children[0].children[0].children[0].innerText;
+    // console.log(user_id)
     const comment = btn.parentElement.previousElementSibling.children[0].children[0].getElementsByTagName('textarea')[0].value;
     console.log(comment)
     const post_id = btn.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[0].children[0].getAttribute('id')
@@ -35,7 +35,7 @@ document.querySelectorAll('.post-comment').forEach(btn => btn.addEventListener('
         const awaitFetch = await fetch(`api/comments`, { 
             method: 'POST',
             body: JSON.stringify({
-                author,
+                // user_id,
                 comment,
                 post_id,
             }),

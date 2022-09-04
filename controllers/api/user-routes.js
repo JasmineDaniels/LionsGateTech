@@ -74,7 +74,8 @@ router.post('/login', async (req, res) => {
         }
 
         
-          req.session.user = userData.username,
+          req.session.user = userData.username
+          req.session.user_id = userData.id
           req.session.loggedIn = true
           console.log(req.session, `LOGIN SESSION==========`)
           console.log(req.sessionID, `LOGIN SESSION ID======`)

@@ -16,7 +16,7 @@ Comment.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        author: {
+        user_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
@@ -40,12 +40,13 @@ Comment.init(
     {
         // hooks: {
         //     beforeCreate: async (commentData) => {
-        //         commentData.author = await User.findByPk({
+        //         commentData.author = await User.findOne({
         //             where: {
-        //                 id: commentData.user_id,
+        //                 username: commentData.user_id,
         //             },
-                    
         //         })
+
+        //         return commentData.author
         //     }
         // },
         sequelize,

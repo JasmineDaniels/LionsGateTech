@@ -3,6 +3,7 @@ const { Session } = require('express-session');
 const { Post, User, Comment } = require('../models');
 const { isAuth } = require('../utils/helpers');
 const router = require('express').Router();
+const sequelize = require('../config/connection')
 
 //GET All - HOMEPG VIEW
 router.get('/', async (req, res) => {
@@ -15,10 +16,13 @@ router.get('/', async (req, res) => {
                 },
                 {
                     model: Comment,
-                    attributes: [
-                    'comment',
-                    'author',
-                    'createdAt'
+                    include: [
+                        {
+                            model: User, 
+                            attributes: [
+                                'username',
+                            ]
+                        }
                     ]
                 }
             ],
@@ -69,7 +73,7 @@ router.post('/api/comments', async (req, res) => {
     try {
         //const userData = await User.findByPk({})
         const commentData = await Comment.create({
-            author: req.body.author, // userData.username
+            user_id: req.session.user_id, // userData.username
             comment: req.body.comment,
             post_id: req.body.post_id,
         })
@@ -96,9 +100,6 @@ router.get('/signup', (req, res) => {
     res.render('signup')
 })
 
-// router.get('/dash', (req, res) => {
-//     res.render('dash')
-// })
 
 // GET user posts by username - DASH (user_id ? / withAUTH)
 // router.get('/dash/:username', async (req, res) => {
@@ -127,6 +128,8 @@ router.get('/signup', (req, res) => {
 //     }
     
 // })
+
+
 
 // GET user posts - DASH (withAUTH)
 router.get(`/dash`, isAuth, async (req, res) => {
@@ -218,5 +221,7 @@ router.delete('/dash/api/posts/:id', async (req, res) => {
         res.status(500).json(error);
     }
 })
+
+
 
 module.exports = router;

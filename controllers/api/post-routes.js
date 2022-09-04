@@ -79,15 +79,15 @@ router.post('/', async (req, res) => {
 
 
 
-router.get('/comments', async (req, res) => {
-    try {
-        const comment = await sequelize.query(`select username, comment from comment inner join user on user.id = author;`, {type: QueryTypes.SELECT});
-        res.status(200).json(comment)
-    } catch (error) {
-        res.status(500).json(error)
-    }
+// router.get('/comments', async (req, res) => {
+//     try {
+//         const comment = await sequelize.query(`select username, comment from comment inner join user on user.id = author;`, {type: QueryTypes.SELECT});
+//         res.status(200).json(comment)
+//     } catch (error) {
+//         res.status(500).json(error)
+//     }
     
-})
+// })
 
 module.exports = router;
 
