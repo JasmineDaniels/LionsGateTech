@@ -1,5 +1,6 @@
 console.log('I am listening')
 
+//Open New Post Form
 document.querySelector('#add-new').addEventListener('click', (event) => {
     event.preventDefault();
 
@@ -19,7 +20,7 @@ document.querySelector('#submit-post').addEventListener('click', async (event) =
     const user_id = document.getElementsByTagName('h5')[1].getAttribute('id')
     console.log(user_id)
 
-    const awaitFetch = await fetch(`api/posts`, { 
+    const awaitFetch = await fetch(`/dash/api/posts`, { 
         method: 'POST',
         body: JSON.stringify({
             title,
@@ -79,10 +80,11 @@ document.querySelectorAll('#update-post').forEach(btn => {
     })
 })
 
+//Delete User Post
 document.querySelectorAll('#delete-post').forEach(btn => btn.addEventListener('click', async (event) => {
     event.preventDefault();
 
-    //On delete cascade? 
+    
     const id = btn.parentElement.parentElement.previousElementSibling.previousElementSibling.children[0].getAttribute('id')
 
     const awaitFetch = await fetch(`/dash/api/posts/${id}`, { 

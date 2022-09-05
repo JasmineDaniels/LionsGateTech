@@ -23,5 +23,10 @@ const userData = [
     },
 ];
 
+// const beforeBulkCreate = () => User.beforeBulkCreate((newUserData) => {
+//     newUserData.password = bcrypt.hash(newUserData.password, 10);
+//     return newUserData
+// })
+
 const seedUser = () => User.bulkCreate(userData);
 module.exports = seedUser;

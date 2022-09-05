@@ -1,9 +1,6 @@
-const session = require('express-session');
-const { Session } = require('express-session');
 const { Post, User, Comment } = require('../models');
 const { isAuth } = require('../utils/helpers');
 const router = require('express').Router();
-const sequelize = require('../config/connection')
 
 //GET All - HOMEPG VIEW
 router.get('/', async (req, res) => {
@@ -53,6 +50,7 @@ router.get('/api/posts', async (req, res) => {
     }
 })
 
+//GET all Comments - API
 router.get('/api/comments', async (req, res) => {
     try {
         const postData = await Comment.findAll({
@@ -68,12 +66,12 @@ router.get('/api/comments', async (req, res) => {
     }
 })
 
-// CREATE Comment - Homepage
-router.post('/api/comments', async (req, res) => {
+//CREATE Comment - API - Homepage
+router.post('/api/comments', isAuth, async (req, res) => {
     try {
-        //const userData = await User.findByPk({})
+        
         const commentData = await Comment.create({
-            user_id: req.session.user_id, // userData.username
+            user_id: req.session.user_id, 
             comment: req.body.comment,
             post_id: req.body.post_id,
         })
@@ -88,6 +86,7 @@ router.post('/api/comments', async (req, res) => {
     
 })
 
+//LOGIN VIEW
 router.get('/login', (req, res) => {
     if (req.session.loggedIn){
         res.redirect('/');
@@ -96,42 +95,12 @@ router.get('/login', (req, res) => {
     res.render('signin')
 })
 
+//SIGN UP VIEW
 router.get('/signup', (req, res) => {
     res.render('signup')
 })
 
-
-// GET user posts by username - DASH (user_id ? / withAUTH)
-// router.get('/dash/:username', async (req, res) => {
-//     try {   
-        
-//         const userData = await User.findOne({
-//             where: {
-//                 username: req.params.username
-//             },
-//             include: {
-//                 model: Post,
-//                 attributes: [
-//                     'title',
-//                     'post_content',
-//                     'createdAt',
-//                     'id'
-//                 ]
-//             }
-//         })
-        
-//         const posts = userData.get({ plain: true })
-//         res.render('dash', posts )
-        
-//     } catch (error) {
-//         res.status(500).json(error);
-//     }
-    
-// })
-
-
-
-// GET user posts - DASH (withAUTH)
+// GET user posts - DASH VIEW
 router.get(`/dash`, isAuth, async (req, res) => {
     try {   
         
@@ -139,17 +108,24 @@ router.get(`/dash`, isAuth, async (req, res) => {
             where: {
                 username: req.session.user
             },
-            include: {
-                model: Post,
-                attributes: [
-                    'title',
-                    'post_content',
-                    'createdAt',
-                    'id'
-                ]
-            }
-        })
-    
+            include: [
+                {
+                    model: Post,
+                    attributes: [
+                        'title',
+                        'post_content',
+                        'createdAt',
+                        'id'
+                    ],
+                    include: {
+                        model: User, 
+                        attributes: [
+                            'username',
+                        ]
+                    }
+                }
+            ]
+        }); 
         
         const posts = userData.get({ plain: true })
         res.render('dash', {
@@ -163,7 +139,7 @@ router.get(`/dash`, isAuth, async (req, res) => {
     
 })
 
-// CREATE user post - DASH
+// CREATE user post - API - DASH 
 router.post('/dash/api/posts', async (req, res) => {
     try {
         const postData = await Post.create({
@@ -183,7 +159,7 @@ router.post('/dash/api/posts', async (req, res) => {
     }
 })
 
-//UPDATE user post - DASH
+//UPDATE user post - API - DASH
 router.put('/dash/api/posts/:id', async (req, res) => {
     try {
         const postData = await Post.update( req.body, {
@@ -203,7 +179,7 @@ router.put('/dash/api/posts/:id', async (req, res) => {
     }
 })
 
-// DELETE user post
+// DELETE user post - API - DASH
 router.delete('/dash/api/posts/:id', async (req, res) => {
     try {
         const postData = await Post.destroy({

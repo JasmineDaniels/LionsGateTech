@@ -20,6 +20,7 @@ document.querySelector('#register').addEventListener('click', async (event) => {
     })
 
     if (awaitFetch.ok){
+        alert(`Welcome to TechHub ${username}! \n Please Sign In..`)
         document.location.replace(`/login`) 
     } else {
         alert(`Failed to signup`)

@@ -8,7 +8,7 @@ const isAuth = (req, res, next) => {
 
 module.exports = {
     format_date: (date) => {
-        let timestamp = date.toLocaleDateString('en-US', {weekday: 'long', month: 'short', year: 'numeric'})
+        let timestamp = date.toLocaleDateString('en-US', {weekday: 'short', month: 'short', year: 'numeric'})
         return timestamp
     },
 

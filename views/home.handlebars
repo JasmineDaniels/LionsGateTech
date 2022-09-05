@@ -37,12 +37,11 @@
                 <div class="card-content ">
                    {{!-- User Posts --}}
                   {{#each posts as |post|}}
-                    {{!-- {{> post-details}} --}}
                     <div class="card mb-3">
                       <div class="card-header">
                         
                         <span id="{{post.id}}" class="float-start"> User: <span>{{post.user.username}}</span></span>
-                        <span class="float-end"> Date Added: <span>{{post.createdAt}}</span></span>
+                        <span class="float-end"> Date Added: <span>{{ format_date post.createdAt}}</span></span>
                       </div>
                       <div class="card-body">
                         <p class="post-title">Title: <span>{{post.title}}</span></p>
@@ -61,8 +60,7 @@
                               <div class="card-content">
                                 <!-- All User Comments -->
                                 {{#each post.comments}}
-                                {{!-- {{> comment-details}} --}}
-                                <div class="card">
+                                <div class="card my-2">
                                   <div class="card-header">
                                     <p id="{{id}}" class="float-start comment-author"> User: <span>{{user.username}}</span></p>
                                     <span class="float-end"> Date Added: <span>{{format_date createdAt}}</span></span>

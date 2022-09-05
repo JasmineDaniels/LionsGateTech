@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const User = require('../../models/User');
-//const bcrypt = require('bcrypt')
 
 // GET all users
 router.get('/', async (req, res) => {
@@ -35,6 +34,7 @@ router.post('/signup', async (req, res) => {
     try {
         const userData = req.body;
         const newUser = await User.create(userData)
+        console.log(newUser)
 
         req.session.save(() => {
           if (newUser){
@@ -55,74 +55,53 @@ router.post('/signup', async (req, res) => {
 
 //Login an existing user
 router.post('/login', async (req, res) => {
-    try {
-        const userData = await User.findOne({
-            where: {
-                username: req.body.username
-            }
-        })
-
-        if (!userData){ 
-          res.status(404).json(`Sorry, there are no users with this username..`)
-          return;
+  try {
+    const userData = await User.findOne({
+        where: {
+            username: req.body.username
         }
-        const isValid = await userData.checkPassword(req.body.password)
-        
-        if (!isValid){
-          res.status(400).json({message: `Password or Username is incorrect`})
-          return;
-        }
+    })
 
-        
-          req.session.user = userData.username
-          req.session.user_id = userData.id
-          req.session.loggedIn = true
-          console.log(req.session, `LOGIN SESSION==========`)
-          console.log(req.sessionID, `LOGIN SESSION ID======`)
-          //console.log(`request session cookie`, req.session.cookie)
-        
-        
-        
-        // req.session.save(() => {
-        //   if (isValid){
-        //     req.session.user = {
-        //       username: userData.username,
-        //     },
-        //     req.session.loggedIn = true
-        //     console.log(`request session cookie`, req.session.cookie)
-        //   } else {
-        //     req.session.loggedIn = false
-        //   }
-        // })
-        
-        res.status(200).json({user: userData, message: `You're successfully logged in!`})
-        
-        
-          
-
-    } catch (error) {
-        res.status(400).json(error)
+    if (!userData){ 
+      res.status(404).json(`Sorry, there are no users with this username..`)
+      return;
     }
+    const isValid = await userData.checkPassword(req.body.password)
+    
+    if (!isValid){
+      res.status(400).json({message: `Password or Username is incorrect`})
+      return;
+    }
+
+    req.session.user = userData.username
+    req.session.user_id = userData.id
+    req.session.loggedIn = true
+    res.status(200).json({user: userData, message: `You're successfully logged in!`})
+      
+  } catch (error) {
+      res.status(400).json(error)
+  }
 })
 
 //Update a user
 router.put('/:id', async (req, res) => {
-    try {
+  try {
+    const userData = await User.update(req.body, {
+      where: {
+        id: req.params.id,
+      },
+      individualHooks: true
+    });
 
-      const userData = await User.update(req.body, {
-        where: {
-          id: req.params.id,
-        },
-        individualHooks: true
-      });
-      if (!userData[0]) {
-        res.status(404).json({ message: 'No user with this id!' });
-        return;
-      }
-      res.status(200).json(userData);
-    } catch (err) {
-      res.status(500).json(err);
+    if (!userData[0]) {
+      res.status(404).json({ message: 'No user with this id!' });
+      return;
     }
+
+    res.status(200).json(userData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 //Delete a user
