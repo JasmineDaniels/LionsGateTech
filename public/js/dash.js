@@ -5,8 +5,6 @@ document.querySelector('#add-new').addEventListener('click', (event) => {
     event.preventDefault();
 
     document.querySelector('.new-post').classList.toggle("none") ;
-
-
 })
 
 // Create user Post - Dash
@@ -14,11 +12,8 @@ document.querySelector('#submit-post').addEventListener('click', async (event) =
     event.preventDefault();
 
     const title = document.getElementsByTagName('input')[0].value;
-    console.log(title)
     const post_content = document.getElementsByTagName('textarea')[0].value;
-    console.log(post_content)
-    const user_id = document.getElementsByTagName('h5')[1].getAttribute('id')
-    console.log(user_id)
+    const user_id = document.getElementsByTagName('h5')[1].getAttribute('id');
 
     const awaitFetch = await fetch(`/dash/api/posts`, { 
         method: 'POST',
@@ -32,11 +27,9 @@ document.querySelector('#submit-post').addEventListener('click', async (event) =
         },
     })
 
-    console.log(awaitFetch)
-
+    // console.log(awaitFetch)
     if (awaitFetch.ok){
-        document.location.reload()
-        
+        document.location.reload()   
     }
 })
 
@@ -53,11 +46,7 @@ document.querySelectorAll('#update-post').forEach(btn => {
 
             const title = updateForm.getElementsByTagName('input')[0].value;
             const id = btn.parentElement.parentElement.previousElementSibling.previousElementSibling.children[0].getAttribute('id')
-            const post_content = updateForm.getElementsByTagName('textarea')[0].value;
-
-            console.log(id)
-            console.log(title)
-            console.log(post_content)  
+            const post_content = updateForm.getElementsByTagName('textarea')[0].value; 
 
             const awaitFetch = await fetch(`/dash/api/posts/${id}`, { 
                 method: 'PUT',
@@ -72,8 +61,7 @@ document.querySelectorAll('#update-post').forEach(btn => {
             })
         
             if (awaitFetch.ok){
-                document.location.reload()
-                
+                document.location.reload()   
             }
 
         })
@@ -84,7 +72,6 @@ document.querySelectorAll('#update-post').forEach(btn => {
 document.querySelectorAll('#delete-post').forEach(btn => btn.addEventListener('click', async (event) => {
     event.preventDefault();
 
-    
     const id = btn.parentElement.parentElement.previousElementSibling.previousElementSibling.children[0].getAttribute('id')
 
     const awaitFetch = await fetch(`/dash/api/posts/${id}`, { 

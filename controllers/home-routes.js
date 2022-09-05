@@ -146,8 +146,7 @@ router.post('/dash/api/posts', async (req, res) => {
             title: req.body.title,
             post_content: req.body.post_content,
             user_id: req.body.user_id,
-        })
-        console.log(postData)
+        });
 
         if(!postData){
             res.status(404).json({message: `Post could not be completed at this time..`})
@@ -167,7 +166,6 @@ router.put('/dash/api/posts/:id', async (req, res) => {
                 id: req.params.id,
             },
         });
-        console.log(postData)
 
         if (!postData){
             res.status(404).json({ message: 'No posts with this id..' })

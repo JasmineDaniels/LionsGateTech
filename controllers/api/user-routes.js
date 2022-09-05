@@ -34,7 +34,6 @@ router.post('/signup', async (req, res) => {
     try {
         const userData = req.body;
         const newUser = await User.create(userData)
-        console.log(newUser)
 
         req.session.save(() => {
           if (newUser){
@@ -42,7 +41,7 @@ router.post('/signup', async (req, res) => {
               username: newUser.username,
             }
             req.session.loggedIn = true
-            console.log(`request session cookie`, req.session.cookie)
+            
           } else {
             req.session.loggedIn = false
           }

@@ -4,9 +4,7 @@ document.querySelector('#register').addEventListener('click', async (event) => {
     event.preventDefault()
 
     const username = document.getElementsByTagName('input')[0].value;
-    console.log(username)
     const password = document.getElementsByTagName('input')[1].value;
-    console.log(password)
 
     const awaitFetch = await fetch(`api/users/signup`, {
         method: 'POST',

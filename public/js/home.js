@@ -26,23 +26,19 @@ document.querySelectorAll('.post-comment').forEach(btn => btn.addEventListener('
     event.preventDefault();
     
     const comment = btn.parentElement.previousElementSibling.children[0].children[0].getElementsByTagName('textarea')[0].value;
-    console.log(comment)
-    const post_id = btn.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[0].children[0].getAttribute('id')
-    console.log(post_id)
+    const post_id = btn.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[0].children[0].getAttribute('id');
 
-        const awaitFetch = await fetch(`api/comments`, { 
-            method: 'POST',
-            body: JSON.stringify({
-                
-                comment,
-                post_id,
-            }),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        
-    console.log(awaitFetch)
+    const awaitFetch = await fetch(`api/comments`, { 
+        method: 'POST',
+        body: JSON.stringify({
+            
+            comment,
+            post_id,
+        }),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
         
     if (awaitFetch.ok){
         document.location.reload()      
