@@ -12,7 +12,7 @@ header {
     font-size: larger;
 }
 
-.new-post, .recent-posts {
+.new-post, .recent-posts, .upload-impage {
     width: 800px; 
 }
 

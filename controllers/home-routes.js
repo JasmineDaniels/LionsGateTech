@@ -6,6 +6,10 @@ const router = require('express').Router();
 router.get('/', async (req, res) => {
     try {
         const postData = await Post.findAll({
+            order: [
+                ['createdAt', 'DESC'],
+                // [Comment, 'createdAt', 'DESC']
+            ],
             include: [
                 { 
                     model: User, 
@@ -13,6 +17,9 @@ router.get('/', async (req, res) => {
                 },
                 {
                     model: Comment,
+                    // order: [
+                    //     [Comment, 'createdAt', 'DESC']
+                    // ],
                     include: [
                         {
                             model: User, 
