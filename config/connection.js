@@ -16,7 +16,8 @@ const { Sequelize } = require('sequelize')
 //     });
 
 
-const sequelize = new Sequelize(process.env.MYSQLURI || process.env.JAWSDB_URL)
+//const sequelize = new Sequelize(process.env.MYSQLURI || process.env.JAWSDB_URL)
+const sequelize = new Sequelize(process.env.MYSQLURI)
   ? new Sequelize(process.env.MYSQLURI)
   : new Sequelize(
       process.env.MYSQLDB,
